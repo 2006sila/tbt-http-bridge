@@ -1,0 +1,16 @@
+# 构建产物
+bin/
+obj/
+dist/
+
+# 构建期重定向（见 build.cmd）
+.dotnet-home/
+.nuget/
+
+# 可选的本地契约覆盖：tools/fetch-contract.ps1 会写入此处。
+# 默认构建走 third_party/PluginApi 的源码，无需本目录。
+lib/
+
+*.user
+*.suo
+.vs/

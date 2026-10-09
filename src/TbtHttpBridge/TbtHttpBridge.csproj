@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>TbtHttpBridge</AssemblyName>
+    <RootNamespace>TbtHttpBridge</RootNamespace>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Deterministic>true</Deterministic>
+    <DebugType>none</DebugType>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!--
+    插件契约（宿主提供，Private=false → 绝不进插件包）。
+
+    默认用仓库内自包含的契约源码（third_party/PluginApi），这样无需安装 TBT 也能 clone 即构建；
+    如果放了 lib\ThinkBookToolkit.PluginApi.dll（tools\fetch-contract.ps1 可从已安装的 TBT 拷一份），
+    则优先用它，保证与本机宿主完全一致。
+  -->
+  <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)..\..\lib\ThinkBookToolkit.PluginApi.dll')">
+    <Reference Include="ThinkBookToolkit.PluginApi">
+      <HintPath>..\..\lib\ThinkBookToolkit.PluginApi.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('$(MSBuildThisFileDirectory)..\..\lib\ThinkBookToolkit.PluginApi.dll')">
+    <ProjectReference Include="..\..\third_party\PluginApi\ThinkBookToolkit.PluginApi.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

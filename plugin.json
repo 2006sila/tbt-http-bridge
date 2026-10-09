@@ -1,0 +1,94 @@
+{
+  "Id": "tbts.http-bridge",
+  "Name": "本机 HTTP 联动",
+  "Author": "咕咕咕---TB大王",
+  "Version": "1.1.0",
+  "ApiVersion": 1,
+  "EntryAssembly": "TbtHttpBridge.dll",
+  "EntryType": "TbtHttpBridge.HttpBridgePlugin",
+  "Permissions": [
+    "sensors.read",
+    "data.read",
+    "host.control"
+  ],
+  "Pages": [
+    {
+      "Id": "tbts.http-bridge.settings",
+      "Order": 60,
+      "Title": {
+        "Chinese": "本机联动",
+        "English": "Local HTTP bridge"
+      }
+    }
+  ],
+  "SettingGroups": [
+    {
+      "Id": "tbts.http-bridge.access",
+      "PageId": "tbts.http-bridge.settings",
+      "Order": 10,
+      "Title": {
+        "Chinese": "本机 HTTP 接口",
+        "English": "Local HTTP interface"
+      },
+      "Description": {
+        "Chinese": "恢复旧版「与其它软件联动」的本机接口：GET / 读传感器快照，POST 可切换性能模式与风扇策略。设置在下一轮刷新内生效，无需重启。",
+        "English": "Restores the previous local HTTP integration interface: GET / for the sensor snapshot, POST to switch performance mode and fan strategy. Changes apply within one refresh; no restart needed."
+      },
+      "Glyph": "\uE8B7"
+    }
+  ],
+  "Settings": [
+    {
+      "Id": "mode",
+      "PageId": "tbts.http-bridge.settings",
+      "GroupId": "tbts.http-bridge.access",
+      "Kind": "choice",
+      "Title": {
+        "Chinese": "联动模式",
+        "English": "Integration mode"
+      },
+      "Description": {
+        "Chinese": "「仅共享数据」只允许读取；想用 POST 调整性能模式或风扇策略，需要选「允许共享数据和调整部分设置」。",
+        "English": "Share data only is read-only. Choose share data and control to allow POST performance-mode and fan-strategy requests."
+      },
+      "Glyph": "\uE7F4",
+      "DefaultValue": "关闭",
+      "Choices": [
+        "关闭",
+        "仅共享数据",
+        "允许共享数据和调整部分设置"
+      ]
+    },
+    {
+      "Id": "port",
+      "PageId": "tbts.http-bridge.settings",
+      "GroupId": "tbts.http-bridge.access",
+      "Kind": "number",
+      "Title": {
+        "Chinese": "监听端口",
+        "English": "Listen port"
+      },
+      "Description": {
+        "Chinese": "仅绑定 127.0.0.1，范围 1–65535，默认 2975（与旧版一致）。修改后点右侧「应用」。",
+        "English": "Binds 127.0.0.1 only. Range 1-65535, default 2975. Press Apply after editing."
+      },
+      "Glyph": "\uE71B",
+      "DefaultValue": 2975,
+      "Minimum": 1,
+      "Maximum": 65535
+    }
+  ],
+  "Sensors": [],
+  "OverviewItems": [
+    {
+      "Id": "tbts.http-bridge.status",
+      "CardId": "cpu",
+      "Action": "add",
+      "Order": 90,
+      "Label": {
+        "Chinese": "本机联动",
+        "English": "HTTP bridge"
+      }
+    }
+  ]
+}
