@@ -258,9 +258,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\release.ps1 -Version 1
 **可复现性**：`Directory.Build.props` 固定了 `PathMap`，同一提交在任意目录/机器构建都会得到逐字节相同的 DLL；
 **ZIP 不可复现**（`Compress-Archive` 会写入文件时间戳）。所以 Release 的校验口径是「包内 DLL 的 SHA256」，不是整包哈希。
 
-> v1.1.0 的 Release 资产构建于加入 `PathMap` 之前：其 DLL SHA256 为 `5760BC8EB4AD4974E90F6C2082845958178E6084DDEE7BC986B179D80436D506`，
-> 而由当前源码构建会得到 `C340A6ADB3FB4B663C2234F2846F70961AA6CD2DC537DA70EDC8F0667CD9F120`（仅嵌入路径不同，功能一致）。
-
 ## 排障
 
 | 现象 | 处理 |
