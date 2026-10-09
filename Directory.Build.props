@@ -1,0 +1,13 @@
+<Project>
+
+  <!--
+    可复现构建：把本仓库根目录映射成 /_/，使编译器写入的程序集路径与机器/检出目录无关。
+    没有这一条，不同目录下构建出的 DLL 会因嵌入的源码路径不同而哈希不同。
+  -->
+  <PropertyGroup>
+    <PathMap>$(MSBuildThisFileDirectory)=/_/</PathMap>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+</Project>
