@@ -1,0 +1,34 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Build
+        shell: cmd
+        run: .\build.cmd
+
+      - name: Test (HostSim harness)
+        shell: cmd
+        run: .\test.cmd
+
+      - name: Pack plugin
+        shell: pwsh
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\pack.ps1 -Version 1.1.0
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TbtHttpBridge-1.1.0
+          path: dist/TbtHttpBridge-1.1.0
