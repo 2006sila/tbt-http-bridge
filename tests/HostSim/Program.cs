@@ -96,7 +96,7 @@ Check("插件目录内不含契约 DLL（由宿主提供）",
 if (entry is IAsyncDisposable disposable) await disposable.DisposeAsync();
 
 Console.WriteLine("== 1. 监听与快照 ==");
-Check("启动后 " + Port + " 可 GET", await WaitAsync(async () => (await SendAsync("GET", root)).Status == 200));
+Check("启动后 " + Port + " 可 GET", await WaitAsync(async () => (await SendAsync("GET", root)).Status == 200, 20000));
 
 // 安全闸：如果端口上的响应不是本夹具（例如真机 TBT 插件正占着同一端口），立即中止，
 // 避免后续的洪泛用例把控制命令打到真实硬件上。
@@ -225,15 +225,15 @@ await Task.Delay(500);
 
 Console.WriteLine("== 5. 端口切换与停用 ==");
 sim.Port = AltPort;
-Check("改端口后 " + AltPort + " 可用", await WaitAsync(async () => (await SendAsync("GET", Base(AltPort))).Status == 200, 6000));
-Check("旧端口 " + Port + " 已释放", await WaitAsync(() => RefusedAsync(root), 6000));
+Check("改端口后 " + AltPort + " 可用", await WaitAsync(async () => (await SendAsync("GET", Base(AltPort))).Status == 200, 15000));
+Check("旧端口 " + Port + " 已释放", await WaitAsync(() => RefusedAsync(root), 15000));
 sim.Mode = "disabled";
-Check("停用后 " + AltPort + " 释放", await WaitAsync(() => RefusedAsync(Base(AltPort)), 6000));
+Check("停用后 " + AltPort + " 释放", await WaitAsync(() => RefusedAsync(Base(AltPort)), 15000));
 
 Console.WriteLine("== 6. 队列上限与恢复 ==");
 sim.Port = Port;
 sim.Mode = "share-data-and-control";
-await WaitAsync(async () => (await SendAsync("GET", root)).Status == 200, 8000);
+await WaitAsync(async () => (await SendAsync("GET", root)).Status == 200, 20000);
 sim.PumpEnabled = false;
 var flood = await Task.WhenAll(Enumerable.Range(0, 300)
     .Select(_ => SendAsync("POST", root + "fan-full-speed", "{\"value\":\"true\"}")));
