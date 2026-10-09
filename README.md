@@ -39,7 +39,13 @@ ThinkBook Toolkit 1.1.0 的更新日志写着：
 
 ## 截图
 
-> 待补：升级到 1.1.0 后，把插件页与概览行截图放进 `docs/images/` 并在此引用。
+**插件卡片**（插件页：版本、作者、请求的 3 项权限、扩展内容）
+
+![插件卡片](docs/images/plugin-card.png)
+
+**设置页**（分组卡片 + 联动模式 + 监听端口）
+
+![本机联动设置页](docs/images/plugin-page.png)
 
 ## 快速开始
 
