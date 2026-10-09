@@ -30,7 +30,7 @@ ThinkBook Toolkit 1.1.0 移除了内置的「与其它软件联动」本机 HTTP
 | 文件 | 说明 |
 |---|---|
 | `plugin.json` | 插件清单（Id `tbts.http-bridge`，API v1） |
-| `TbtHttpBridge.dll` | 插件本体，SHA256 `C340A6ADB3FB4B663C2234F2846F70961AA6CD2DC537DA70EDC8F0667CD9F120` |
+| `TbtHttpBridge.dll` | 插件本体，SHA256 `5760BC8EB4AD4974E90F6C2082845958178E6084DDEE7BC986B179D80436D506` |
 | `TbtHttpBridge.deps.json` | 零依赖声明（不含契约程序集） |
 
 > 包内 DLL 的哈希可复现（`Deterministic` 构建）；zip 哈希不可复现（压缩会写入时间戳），

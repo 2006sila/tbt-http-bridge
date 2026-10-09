@@ -255,7 +255,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\release.ps1 -Version 1
 powershell -NoProfile -ExecutionPolicy Bypass -File tools\release.ps1 -Version 1.1.0 -Execute # 发布
 ~~~
 
-**可复现性**：`Directory.Build.props` 固定了 `PathMap`，同一提交在任意目录/机器构建都会得到逐字节相同的 DLL；
+**可复现性**：`Directory.Build.props` 固定了 `PathMap`（消除检出目录差异）并关闭了 `AssemblyInformationalVersion` 里的 git 提交号后缀，
+因此 **DLL 只取决于源码**：任意目录、任意机器、任意提交状态下构建，结果逐字节相同；
 **ZIP 不可复现**（`Compress-Archive` 会写入文件时间戳）。所以 Release 的校验口径是「包内 DLL 的 SHA256」，不是整包哈希。
 
 ## 排障

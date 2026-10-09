@@ -1,12 +1,16 @@
 <Project>
 
   <!--
-    可复现构建：把本仓库根目录映射成 /_/，使编译器写入的程序集路径与机器/检出目录无关。
-    没有这一条，不同目录下构建出的 DLL 会因嵌入的源码路径不同而哈希不同。
+    可复现构建：
+    1) PathMap 把仓库根映射成 /_/，消除检出目录差异；
+    2) 关掉 SourceLink 风格的版本后缀（默认会写入 1.1.0+<git sha>），
+       否则同一份源码在不同提交上构建出的 DLL 也不一样。
+    插件的版本号来自 plugin.json，DLL 里不需要 git 提交号。
   -->
   <PropertyGroup>
     <PathMap>$(MSBuildThisFileDirectory)=/_/</PathMap>
     <Deterministic>true</Deterministic>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
